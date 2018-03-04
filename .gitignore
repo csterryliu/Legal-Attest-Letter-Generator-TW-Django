@@ -2,3 +2,4 @@
 *.sqlite3
 *.pyc
 sftp.json
+# lal_web/lal_web/generator/lal_module/*
