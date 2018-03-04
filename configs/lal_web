@@ -1,0 +1,22 @@
+server {
+    listen 80;
+    server_name 0.0.0.0;
+
+    rewrite ^(.*) https://$host$1 permanent;
+}
+
+server {
+    listen 443 ssl;
+    server_name 0.0.0.0;
+
+    ssl_certificate /etc/nginx/ssl/cert.pem;
+    ssl_certificate_key /etc/nginx/ssl/key.pem;
+
+    location /static/ {
+        alias /usr/share/lal_web/static/;
+    }
+    location / {
+        include proxy_params;
+        proxy_pass http://unix:/usr/share/lal_web/lal_web.sock;
+    }
+}

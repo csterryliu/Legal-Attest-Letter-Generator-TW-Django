@@ -1,0 +1,3 @@
+*.sock
+*.sqlite3
+*.pyc
