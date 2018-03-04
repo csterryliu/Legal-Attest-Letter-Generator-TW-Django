@@ -55,7 +55,7 @@ ROOT_URLCONF = 'lal_web.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -119,3 +119,35 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': True,
+    'formatters': {
+        'detail_log': {
+            'format': "[%(asctime)s] %(levelname)-8s [%(name)s:%(lineno)s] \
+%(message)s",
+        }
+    },
+    'handlers': {
+        'web': {
+            'formatter': 'detail_log',
+            'filename': '/var/log/lal_web/lal_web.log',
+            'level': 'DEBUG',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'maxBytes': 1024*1024*5,
+            'backupCount': 9,
+        },
+    },
+    'loggers': {
+        'django.request': {
+            'handlers': ['web'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+        'lal_web': {
+            'handlers': ['web'],
+            'level': 'DEBUG',
+        }
+    },
+}
