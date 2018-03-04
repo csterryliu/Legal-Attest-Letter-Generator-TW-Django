@@ -16,6 +16,7 @@ Including another URLconf
 from django.conf.urls import url
 from generator import views as generator_views
 
-urlpatterns = [
+urlpatterns = [ 
     url(r'^$', generator_views.main_page),
+    url(r'^generate/$', generator_views.generate),
 ]

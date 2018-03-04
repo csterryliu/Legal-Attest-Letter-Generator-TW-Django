@@ -1,3 +1,21 @@
 <html>
-    Hello World!
+    <h1>台灣郵局存證信函產生器</h1>
+    <form method="post" action="generate/">
+        {% csrf_token %}
+        寄件人姓名：
+        <input name="sender"> <br>
+        寄件人詳細地址：
+        <input name="senderAddr"> <br>
+        收件人姓名：
+        <input name="receiver"> <br>
+        收件人詳細地址：
+        <input name="receiverAddr"> <br>
+        副本收件人姓名：
+        <input name="cc"> <br>
+        副本收件人詳細地址：
+        <input name="ccAddr"> <br> 
+        內文：
+        <textarea name="content"></textarea>
+        <input type="submit" value="產生"> 
+    </form>
 </html>
