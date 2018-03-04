@@ -1,3 +1,4 @@
 *.sock
 *.sqlite3
 *.pyc
+sftp.json
