@@ -18,4 +18,6 @@ from .generator import views as generator_views
 
 urlpatterns = [
     url(r'^$', generator_views.main_page),
+    url(r'^generate/$', generator_views.generate),
+
 ]
