@@ -9,9 +9,20 @@
         <script src="/static/third-party/bootstrap/js/bootstrap.min.js"></script>
     </head>
 
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+        <ul class="navbar-nav">
+            <li class="nav-item active">
+                <a class="nav-link" href="#">台灣郵局存證信函產生器</a>
+            </li>
+            <li class=nav-item>
+                <a class="nav-link" href="https://github.com/csterryliu/Legal-Attest-Letter-Generator-TW-Django">
+                    <img src="/static/img/GitHub-Mark-Light-32px.png">
+                </a>
+            </li>
+        </ul>
+    </nav>
 
 
-    <h1>台灣郵局存證信函產生器</h1>
     <form method="post" action="generate/">
         {% csrf_token %}
         寄件人姓名：
