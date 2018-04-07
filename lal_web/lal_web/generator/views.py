@@ -1,6 +1,7 @@
 import logging
 from django.shortcuts import render
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect,\
+    HttpResponseNotAllowed
 
 from lal_web.generator.lal_module import core
 
@@ -39,3 +40,28 @@ def generate(request):
     core.clean_temp_files(text_path, letter_path)
     logger.debug('done')
     return HttpResponseRedirect('/')
+
+
+def add_info(request):
+    if request.method != 'GET':
+        return HttpResponseNotAllowed(['GET'])
+
+    sender = request.GET.get('sender', '')
+    sender_addr = request.GET.get('senderAddr', '')
+    receiver = request.GET.get('receiver', '')
+    receiver_addr = request.GET.get('receiverAddr', '')
+    cc = request.GET.get('cc', '')
+    cc_addr = request.GET.get('ccAddr', '')
+    num_of_info = request.GET.get('num_of_info', 1)
+
+    ret_value = {
+        'sender': sender,
+        'sender_addr': sender_addr,
+        'receiver': receiver,
+        'receiver_addr': receiver_addr,
+        'cc': cc,
+        'cc_addr': cc_addr,
+        'num_of_info': num_of_info
+    }
+
+    return render(request, 'info_card.html', ret_value)

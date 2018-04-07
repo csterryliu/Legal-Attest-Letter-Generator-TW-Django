@@ -1,20 +1,20 @@
 <div class="card border-primary">
         <div class="card-header">
-            #1
+            #{{ num_of_info }}
             <button type="button" class="btn btn-danger" style="float:right">刪除</button>
         </div>
         <div class="card-body">
             <div class="card-subtitle">寄件人</div>
-            <div class="card-text text-dark" style="margin-bottom:10px">測試</div>
+            <div class="card-text text-dark" style="margin-bottom:10px">{{ sender }}</div>
             <div class="card-subtitle">寄件人詳細地址</div>
-            <div class="card-text text-dark" style="margin-bottom:10px">測試</div>
+            <div class="card-text text-dark" style="margin-bottom:10px">{{ sender_addr }}</div>
             <div class="card-subtitle">收件人</div>
-            <div class="card-text text-dark" style="margin-bottom:10px">測試</div>
+            <div class="card-text text-dark" style="margin-bottom:10px">{{ receiver }}</div>
             <div class="card-subtitle">收件人詳細地址</div>
-            <div class="card-text text-dark" style="margin-bottom:10px">測試</div>
+            <div class="card-text text-dark" style="margin-bottom:10px">{{ receiver_addr }}</div>
             <div class="card-subtitle">副本收件人</div>
-            <div class="card-text text-dark" style="margin-bottom:10px">測試</div>
+            <div class="card-text text-dark" style="margin-bottom:10px">{{ cc }}</div>
             <div class="card-subtitle">副本收件人詳細地址</div>
-            <div class="card-text text-dark">測試</div>
+            <div class="card-text text-dark">{{ cc_addr }}</div>
         </div>
 </div>
