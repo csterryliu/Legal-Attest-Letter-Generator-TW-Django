@@ -7,6 +7,10 @@
         <script src="/static/third-party/jquery-3.3.1.min.js"></script>
         <link rel="stylesheet" href="/static/third-party/bootstrap/css/bootstrap.min.css">
         <script src="/static/third-party/bootstrap/js/bootstrap.min.js"></script>
+
+        <!-- custom js -->
+        <script src="/static/js/main.js"></script>
+        <script src="/static/js/controls.js"></script>
     </head>
 
     <body background="/static/img/coffee.jpg">
@@ -33,10 +37,19 @@
             <div class="card border-light">
                 <div class="card-header">
                     寄件資訊 
-                    <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#add_receiver_modal" style="margin-left:15px">新增資訊</button>
                     <button type="button" class="btn btn-warning" style="margin-left:15px">全部清除</button>
                 </div>
-                <div class="card-body text-secondary">請按「新增資訊」...</div>
+                <div class="card-body text-secondary">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="card border-primary">
+                                <div class="card-body">
+                                        <button type="button" class="btn btn-link" data-toggle="modal" data-target="#add_receiver_modal" style="margin-left:15px">新增..</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div class="card border-dark" style="margin-top:20px; height:500px">
@@ -93,7 +106,7 @@
                     </div>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-primary">確定</button>
+              <button type="button" class="btn btn-primary" onclick="save_info()">確定</button>
               <button type="button" class="btn btn-danger" data-dismiss="modal">取消</button>
             </div>
           </div>
