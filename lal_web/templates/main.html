@@ -32,11 +32,11 @@
         <div class="container" style="padding-top:20px">
             <div class="card border-light">
                 <div class="card-header">
-                    收件人資訊 
-                    <button type="button" class="btn btn-secondary" style="margin-left:15px">新增資訊</button>
+                    寄件資訊 
+                    <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#add_receiver_modal" style="margin-left:15px">新增資訊</button>
                     <button type="button" class="btn btn-warning" style="margin-left:15px">全部清除</button>
                 </div>
-                <div class="card-body text-secondary">無資料</div>
+                <div class="card-body text-secondary">請按「新增資訊」...</div>
             </div>
 
             <div class="card border-dark" style="margin-top:20px; height:500px">
@@ -57,4 +57,50 @@
 
         
     </body>
+
+
+    <!-- Modal -->
+<div class="modal fade" id="add_receiver_modal" tabindex="-1" role="dialog" aria-labelledby="add_receiver_modal_label" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="add_receiver_modal_label">新增寄件資訊</h5>
+            </div>
+            <div class="modal-body">
+                    <div class="form-group">
+                        <label for="input_sender">寄件人</label>
+                        <input type="text" class="form-control" id="input_sender">
+                    </div>
+                    <div class="form-group">
+                        <label for="input_senderAddr">寄件人詳細地址</label>
+                        <input type="text" class="form-control" id="input_senderAddr">
+                    </div>
+                    <div class="form-group">
+                        <label for="input_receiver">收件人</label>
+                        <input type="text" class="form-control" id="input_receiver">
+                    </div>
+                    <div class="form-group">
+                        <label for="input_receiverAddr">收件人詳細地址</label>
+                        <input type="text" class="form-control" id="input_receiverAddr">
+                    </div>
+                    <div class="form-group">
+                        <label for="input_cc">副本收件人</label>
+                        <input type="text" class="form-control" id="input_cc">
+                    </div>
+                    <div class="form-group">
+                        <label for="input_ccAddr">副本收件人詳細地址</label>
+                        <input type="text" class="form-control" id="input_ccAddr">
+                    </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary">確定</button>
+              <button type="button" class="btn btn-danger" data-dismiss="modal">取消</button>
+            </div>
+          </div>
+        </div>
+</div>
+
+
+
+
 </html>
