@@ -9,36 +9,52 @@
         <script src="/static/third-party/bootstrap/js/bootstrap.min.js"></script>
     </head>
 
-    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-        <ul class="navbar-nav">
-            <li class="nav-item active">
-                <a class="nav-link" href="#">台灣郵局存證信函產生器</a>
-            </li>
-            <li class=nav-item>
-                <a class="nav-link" href="https://github.com/csterryliu/Legal-Attest-Letter-Generator-TW-Django">
-                    <img src="/static/img/GitHub-Mark-Light-32px.png">
-                </a>
-            </li>
-        </ul>
-    </nav>
+    <body background="/static/img/coffee.jpg">
+        <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">台灣郵局存證信函產生器</a>
+                </li>
+                <li class=nav-item>
+                    <a class="nav-link" href="https://github.com/csterryliu/Legal-Attest-Letter-Generator-TW-Django">
+                        <img src="/static/img/GitHub-Mark-Light-32px.png"> 網站原始碼
+                    </a>
+                </li>
+                <li class=nav-item>
+                    <a class="nav-link" href="https://github.com/csterryliu/Legal-Attest-Letter-Generator-TW">
+                        <img src="/static/img/GitHub-Mark-Light-32px.png"> 核心原始碼
+                    </a>
+                </li>
+            </ul>
+        </nav>
 
 
-    <form method="post" action="generate/">
-        {% csrf_token %}
-        寄件人姓名：
-        <input name="sender"> <br>
-        寄件人詳細地址：
-        <input name="senderAddr"> <br>
-        收件人姓名：
-        <input name="receiver"> <br>
-        收件人詳細地址：
-        <input name="receiverAddr"> <br>
-        副本收件人姓名：
-        <input name="cc"> <br>
-        副本收件人詳細地址：
-        <input name="ccAddr"> <br> 
-        內文：
-        <textarea name="content"></textarea>
-        <input type="submit" value="產生"> 
-    </form>
+        <div class="container" style="padding-top:20px">
+            <div class="card border-light">
+                <div class="card-header">
+                    收件人資訊 
+                    <button type="button" class="btn btn-secondary" style="margin-left:15px">新增資訊</button>
+                    <button type="button" class="btn btn-warning" style="margin-left:15px">全部清除</button>
+                </div>
+                <div class="card-body text-secondary">無資料</div>
+            </div>
+
+            <div class="card border-dark" style="margin-top:20px; height:500px">
+                <div class="card-header bg-info text-white">
+                    內文
+                    <button type="button" class="btn btn-warning" style="margin-left:15px">全部清除</button>
+                </div>
+                <div class="card-body bg-secondary">
+                    <div class=".container-fluid .form-group">
+                        <textarea class="form-control text-white" style="resize:none; height:395px; background-color:transparent"></textarea>
+                    </div>
+                </div>
+                <div class="card-footer bg-transparent" style="margin-bottom:50px">
+                    <button type="button" class="btn btn-success" style="float:right">產生文件</button>
+                </div>
+            </div>
+        </div>
+
+        
+    </body>
 </html>
