@@ -41,26 +41,30 @@ function clear_content() {
 }
 
 function generate_pdf() {
-    console.log('generate')
-    var all_info_text = $('div .row .card.border-primary .card-text');
+    function collect_info(cards) {
+        cards.each(function() {
+            if ($(this).attr('id') == undefined) {
+                console.log($(this).find('.card-text').eq(0).html())
+                console.log($(this).find('.card-text').eq(1).html())
+            }
+        })
+    }
+
+
+
     var senders = [];
     var senders_addr = [];
     var receivers = [];
     var receivers_addr = [];
     var ccs = [];
     var ccs_addr = [];
-    for (var idx=0; idx < all_info_text.length; idx+=6) {
-        var this_sender = all_info_text.eq(idx).html();
-        console.log(this_sender)
-        var this_sender_addr = all_info_text.eq(idx+1).html();
-        console.log(this_sender_addr)
-        var this_receiver = all_info_text.eq(idx+2).html();
-        console.log(this_receiver)
-        var this_receiver_addr = all_info_text.eq(idx+3).html();
-        console.log(this_receiver_addr)
-        var this_cc = all_info_text.eq(idx+4).html();
-        console.log(this_cc)
-        var this_cc_addr = all_info_text.eq(idx+5).html();
-        console.log(this_cc_addr)
-    }
+
+    var all_sender_cards = $('#sender_info').parent().find('.card');
+    var all_receiver_cards = $('#receiver_info').parent().find('.card');
+    var all_cc_cards = $('#cc_info').parent().find('.card');
+
+    collect_info(all_sender_cards);
+    collect_info(all_receiver_cards);
+    collect_info(all_cc_cards);
+    
 }
