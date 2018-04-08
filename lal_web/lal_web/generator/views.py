@@ -52,7 +52,7 @@ def add_info(request):
     receiver_addr = request.GET.get('receiverAddr', '')
     cc = request.GET.get('cc', '')
     cc_addr = request.GET.get('ccAddr', '')
-    num_of_info = request.GET.get('num_of_info', 1)
+    num_of_info = request.GET.get('num_of_info', 0)
 
     ret_value = {
         'sender': sender,
@@ -61,7 +61,7 @@ def add_info(request):
         'receiver_addr': receiver_addr,
         'cc': cc,
         'cc_addr': cc_addr,
-        'num_of_info': num_of_info
+        'num_of_info': int(num_of_info) + 1
     }
 
     return render(request, 'info_card.html', ret_value)
