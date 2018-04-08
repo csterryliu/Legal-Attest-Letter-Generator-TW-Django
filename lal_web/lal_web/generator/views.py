@@ -46,21 +46,21 @@ def add_info(request):
     if request.method != 'GET':
         return HttpResponseNotAllowed(['GET'])
 
-    sender = request.GET.get('sender', '')
-    sender_addr = request.GET.get('senderAddr', '')
-    receiver = request.GET.get('receiver', '')
-    receiver_addr = request.GET.get('receiverAddr', '')
-    cc = request.GET.get('cc', '')
-    cc_addr = request.GET.get('ccAddr', '')
-    num_of_info = request.GET.get('num_of_info', 0)
+    role = request.GET.get('role', '')
+    role_name = request.GET.get('roleName', '')
+    role_addr = request.GET.get('roleAddr', '')
+    num_of_info = request.GET.get('num_of_info', 1)
+
+    role_map = {
+        'sender': '寄件人',
+        'receiver': '收件人',
+        'cc': '副本收件人',
+    }
 
     ret_value = {
-        'sender': sender,
-        'sender_addr': sender_addr,
-        'receiver': receiver,
-        'receiver_addr': receiver_addr,
-        'cc': cc,
-        'cc_addr': cc_addr,
+        'role': role_map[role],
+        'role_name': role_name,
+        'role_addr': role_addr,
         'num_of_info': int(num_of_info) + 1
     }
 
