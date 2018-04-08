@@ -39,3 +39,7 @@ function delete_an_info() {
         all_info_cards.eq(idx).find('span').html('#'+(idx+1));
     }
 }
+
+function clear_content() {
+    $('#content').val('');
+}

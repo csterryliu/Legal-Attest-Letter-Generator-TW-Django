@@ -55,11 +55,11 @@
             <div class="card border-dark" style="margin-top:20px; height:500px">
                 <div class="card-header bg-info text-white">
                     內文
-                    <button type="button" class="btn btn-warning" style="margin-left:15px">全部清除</button>
+                    <button type="button" class="btn btn-warning" style="margin-left:15px" onclick="clear_content()">全部清除</button>
                 </div>
                 <div class="card-body bg-secondary">
                     <div class=".container-fluid .form-group">
-                        <textarea class="form-control text-white" style="resize:none; height:395px; background-color:transparent"></textarea>
+                        <textarea id="content" class="form-control text-white" style="resize:none; height:395px; background-color:transparent"></textarea>
                     </div>
                 </div>
                 <div class="card-footer bg-transparent" style="margin-bottom:50px">
