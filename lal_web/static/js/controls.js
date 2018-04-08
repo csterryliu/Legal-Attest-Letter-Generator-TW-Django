@@ -13,3 +13,13 @@ function save_info() {
         $(card_html).insertBefore('#card_add_info');
     });
 }
+
+
+function delete_all_info() {
+    var all_info_cards = $('div .row .col-sm-4');
+    if (all_info_cards.length > 1) {
+        for (var idx = 0; idx < all_info_cards.length-1; idx++) {
+            all_info_cards.eq(idx).remove();
+        }
+    }
+}
