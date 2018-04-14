@@ -41,30 +41,77 @@ function clear_content() {
 }
 
 function generate_pdf() {
-    function collect_info(cards) {
+    function collect_info(type, cards) {
         cards.each(function() {
             if ($(this).attr('id') == undefined) {
                 console.log($(this).find('.card-text').eq(0).html())
                 console.log($(this).find('.card-text').eq(1).html())
+                post_data[type].push([$(this).find('.card-text').eq(0).html()]);
+                post_data[`${type}_addr`].push($(this).find('.card-text').eq(1).html());
             }
         })
     }
 
-
-
-    var senders = [];
-    var senders_addr = [];
-    var receivers = [];
-    var receivers_addr = [];
-    var ccs = [];
-    var ccs_addr = [];
+    var post_data = {
+        'senders': [],
+        'senders_addr': [],
+        'receivers': [],
+        'receivers_addr': [],
+        'ccs': [],
+        'ccs_addr': [],
+        'content': ''
+    };
 
     var all_sender_cards = $('#sender_info').parent().find('.card');
     var all_receiver_cards = $('#receiver_info').parent().find('.card');
     var all_cc_cards = $('#cc_info').parent().find('.card');
+    post_data['content'] = $('#content').val();
+    console.log(content);
 
-    collect_info(all_sender_cards);
-    collect_info(all_receiver_cards);
-    collect_info(all_cc_cards);
+    collect_info('senders', all_sender_cards);
+    collect_info('receivers', all_receiver_cards);
+    collect_info('ccs', all_cc_cards);
+    console.log(post_data);
+    console.log(JSON.stringify(post_data));
+    var csrf_token = getCookie('csrftoken');
+    console.log(csrf_token);
+
+    $.ajaxSetup({
+        beforeSend: function(xhr, settings) {
+            if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                xhr.setRequestHeader("X-CSRFToken", csrf_token);
+            }
+        }
+    });
     
+    $.ajax({
+        type: 'POST',
+        url: '/generate/',
+        data: JSON.stringify(post_data),
+        contentType: 'application/json; charset=utf-8',
+        timeout: 30000
+    }).done(function() {
+        alert('OK');
+    });
+}
+
+function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = jQuery.trim(cookies[i]);
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+function csrfSafeMethod(method) {
+    // these HTTP methods do not require CSRF protection
+    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
 }
