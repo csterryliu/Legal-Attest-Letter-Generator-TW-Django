@@ -10,6 +10,6 @@ This work is based on my Python module. You can find the source code here and fe
 
 ## Dependencies ##
 - Python 3
-- Django 1.11.10
+- Django 1.11.11
 - Bootstrap v4
 - JQuery 3.3.1

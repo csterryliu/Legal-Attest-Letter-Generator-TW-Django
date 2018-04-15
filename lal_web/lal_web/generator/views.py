@@ -1,7 +1,7 @@
 import logging
 from django.shortcuts import render
-from django.http import HttpResponse, HttpResponseRedirect,\
-    HttpResponseNotAllowed, HttpResponseServerError
+from django.http import HttpResponse, HttpResponseNotAllowed,\
+    HttpResponseServerError
 import json
 from lal_web.generator.lal_module import core
 
@@ -13,25 +13,31 @@ def main_page(request):
 
 
 def generate(request):
+    if request.method != 'POST':
+        return HttpResponseNotAllowed(['POST'])
     try:
-        #data = json.loads(request.body)
-        #logger.debug(data)
-        '''text_path, letter_path = core.generate_text_and_letter(senders,
-                                                               senders_addr,
-                                                               receivers,
-                                                               receivers_addr,
-                                                               ccs,
-                                                               cc_addr,
-                                                               content)
-        logger.debug(text_path)
-        logger.debug(letter_path)
-        core.merge_text_and_letter(text_path, letter_path, 'test.pdf')
-        core.clean_temp_files(text_path, letter_path)'''
-        logger.debug('done')
+        logger.debug(request.body)
+        data = json.loads(request.body.decode('utf-8'))
+        logger.debug(data)
+        text_path, letter_path = core.generate_text_and_letter(
+            data['senders'],
+            data['senders_addr'],
+            data['receivers'],
+            data['receivers_addr'],
+            data['ccs'],
+            data['ccs_addr'],
+            data['content'])
+        core.merge_text_and_letter(text_path, letter_path, '/tmp/test.pdf')
+        core.clean_temp_files(text_path, letter_path)
     except Exception as e:
-        logger.debug(str(e))
-        return HttpResponseServerError(str(e))
-    return HttpResponse('ok')
+        error_str = ('Failed to generate pdf: %s' % str(e))
+        logger.error(error_str)
+        return HttpResponseServerError(error_str)
+    pdf_file = open('/tmp/test.pdf', 'rb')
+    response = HttpResponse(pdf_file, content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename="test.pdf"'
+
+    return response
 
 
 def add_info(request):

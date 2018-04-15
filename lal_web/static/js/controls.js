@@ -71,12 +71,36 @@ function generate_pdf() {
     collect_info('senders', all_sender_cards);
     collect_info('receivers', all_receiver_cards);
     collect_info('ccs', all_cc_cards);
-    console.log(post_data);
-    console.log(JSON.stringify(post_data));
+
     var csrf_token = getCookie('csrftoken');
     console.log(csrf_token);
 
-    $.ajaxSetup({
+    var post_request = new XMLHttpRequest();
+    post_request.open('POST', '/generate/');
+    post_request.responseType = 'blob';
+    post_request.onload = function (oEvent) {
+        console.log(this.status);
+        if (this.status == 200) {
+            var pdf_blob = new Blob([this.response], {type: 'application/pdf'});
+            var link = document.createElement('a');
+            link.href = window.URL.createObjectURL(pdf_blob);
+            link.download = "lal_.pdf";
+            link.click();
+        } else {
+            alert('Failed!');
+        }
+    };
+
+    post_request.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
+    post_request.setRequestHeader('X-CSRFToken', csrf_token);
+    post_request.send(JSON.stringify(post_data));
+
+
+
+
+
+
+    /*$.ajaxSetup({
         beforeSend: function(xhr, settings) {
             if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
                 xhr.setRequestHeader("X-CSRFToken", csrf_token);
@@ -90,9 +114,16 @@ function generate_pdf() {
         data: JSON.stringify(post_data),
         contentType: 'application/json; charset=utf-8',
         timeout: 30000
-    }).done(function() {
-        alert('OK');
-    });
+    }).done(function(data) {
+        console.log(data);
+        var blob = new Blob([data], {type: 'application/pdf'});
+        var link=document.createElement('a');
+        link.href=window.URL.createObjectURL(blob);
+        link.download="test.pdf";
+        link.click();
+    }).fail(function() {
+        alert('failed');
+    });*/
 }
 
 function getCookie(name) {
