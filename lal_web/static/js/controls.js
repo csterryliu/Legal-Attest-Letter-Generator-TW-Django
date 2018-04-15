@@ -6,11 +6,35 @@ function save_info(role) {
     var addr = $(id_str).val();
     $(id_str).val('');
     var num_of_cards = $(`#${role}_info`).parent().find('.btn.btn-danger').length;
-    $.get(`/add_info/?role=${role}&roleName=${name}&roleAddr=${addr}&num_of_info=${num_of_cards}`, function(ret_value){
-        var card_html = ret_value;
+    var post_data = {
+        'role': role,
+        'roleName': name,
+        'roleAddr': addr,
+        'num_of_info': num_of_cards
+    };
+    
+    $.ajaxSetup({
+        beforeSend: function(xhr, settings) {
+            if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+            }
+        }
+    });
+    
+    $.ajax({
+        type: 'POST',
+        url: '/add_info/',
+        data: post_data,
+        dataType: 'html',
+        contentType: 'application/x-www-form-urlencoded; charset=utf-8',
+        timeout: 30000
+    }).done(function(data) {
+        var card_html = data;
         $(card_html).insertBefore(`#${role}_info`);
         var button = $(`#${role}_info`).prev().find('button');
         button.click(delete_an_info);
+    }).fail(function() {
+        alert('失敗！請重試，或回報為 bug，謝謝。');
     });
 }
 
@@ -24,7 +48,6 @@ function delete_all_info() {
 }
 
 function delete_an_info() {
-    console.log('xxxx')
     var card_number = parseInt($(this).prev().html().replace('#', '')) - 1;
     var all_info_cards = $(this).parent().parent().parent().find('.card.border-primary');
     $(this).parent().parent().remove();
@@ -44,8 +67,6 @@ function generate_pdf() {
     function collect_info(type, cards) {
         cards.each(function() {
             if ($(this).attr('id') == undefined) {
-                console.log($(this).find('.card-text').eq(0).html())
-                console.log($(this).find('.card-text').eq(1).html())
                 post_data[type].push([$(this).find('.card-text').eq(0).html()]);
                 post_data[`${type}_addr`].push($(this).find('.card-text').eq(1).html());
             }
@@ -66,20 +87,17 @@ function generate_pdf() {
     var all_receiver_cards = $('#receiver_info').parent().find('.card');
     var all_cc_cards = $('#cc_info').parent().find('.card');
     post_data['content'] = $('#content').val();
-    console.log(content);
 
     collect_info('senders', all_sender_cards);
     collect_info('receivers', all_receiver_cards);
     collect_info('ccs', all_cc_cards);
 
     var csrf_token = getCookie('csrftoken');
-    console.log(csrf_token);
 
     var post_request = new XMLHttpRequest();
     post_request.open('POST', '/generate/');
     post_request.responseType = 'blob';
     post_request.onload = function (oEvent) {
-        console.log(this.status);
         if (this.status == 200) {
             var pdf_blob = new Blob([this.response], {type: 'application/pdf'});
             var link = document.createElement('a');
@@ -87,43 +105,13 @@ function generate_pdf() {
             link.download = "lal_.pdf";
             link.click();
         } else {
-            alert('Failed!');
+            alert('失敗！請重試，或回報為 bug，謝謝。');
         }
     };
 
     post_request.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
     post_request.setRequestHeader('X-CSRFToken', csrf_token);
     post_request.send(JSON.stringify(post_data));
-
-
-
-
-
-
-    /*$.ajaxSetup({
-        beforeSend: function(xhr, settings) {
-            if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
-                xhr.setRequestHeader("X-CSRFToken", csrf_token);
-            }
-        }
-    });
-    
-    $.ajax({
-        type: 'POST',
-        url: '/generate/',
-        data: JSON.stringify(post_data),
-        contentType: 'application/json; charset=utf-8',
-        timeout: 30000
-    }).done(function(data) {
-        console.log(data);
-        var blob = new Blob([data], {type: 'application/pdf'});
-        var link=document.createElement('a');
-        link.href=window.URL.createObjectURL(blob);
-        link.download="test.pdf";
-        link.click();
-    }).fail(function() {
-        alert('failed');
-    });*/
 }
 
 function getCookie(name) {

@@ -46,13 +46,13 @@ def generate(request):
 
 
 def add_info(request):
-    if request.method != 'GET':
-        return HttpResponseNotAllowed(['GET'])
+    if request.method != 'POST':
+        return HttpResponseNotAllowed(['POST'])
 
-    role = request.GET.get('role', '')
-    role_name = request.GET.get('roleName', '')
-    role_addr = request.GET.get('roleAddr', '')
-    num_of_info = request.GET.get('num_of_info', 1)
+    role = request.POST.get('role', '')
+    role_name = request.POST.get('roleName', '')
+    role_addr = request.POST.get('roleAddr', '')
+    num_of_info = request.POST.get('num_of_info', 1)
 
     role_map = {
         'sender': '寄件人',
