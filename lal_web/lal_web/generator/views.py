@@ -3,6 +3,8 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseNotAllowed,\
     HttpResponseServerError
 import json
+import os
+import uuid
 from lal_web.generator.lal_module import core
 
 logger = logging.getLogger('lal_web')
@@ -36,7 +38,7 @@ def generate(request):
     pdf_file = open('/tmp/test.pdf', 'rb')
     response = HttpResponse(pdf_file, content_type='application/pdf')
     response['Content-Disposition'] = 'attachment; filename="test.pdf"'
-
+    os.remove('/tmp/test.pdf')
     return response
 
 
