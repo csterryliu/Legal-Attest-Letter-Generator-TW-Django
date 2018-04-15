@@ -5,6 +5,7 @@ from django.http import HttpResponse, HttpResponseNotAllowed,\
 import json
 import os
 import uuid
+import datetime
 from lal_web.generator.lal_module import core
 
 logger = logging.getLogger('lal_web')
@@ -29,16 +30,18 @@ def generate(request):
             data['ccs'],
             data['ccs_addr'],
             data['content'])
-        core.merge_text_and_letter(text_path, letter_path, '/tmp/test.pdf')
+        temp_filename =\
+            ('/tmp/%s-%s.pdf' % (str(uuid.uuid4()),
+             '{0:%Y-%m-%d-%H-%M-%S}'.format(datetime.datetime.now())))
+        core.merge_text_and_letter(text_path, letter_path, temp_filename)
         core.clean_temp_files(text_path, letter_path)
     except Exception as e:
         error_str = ('Failed to generate pdf: %s' % str(e))
         logger.error(error_str)
         return HttpResponseServerError(error_str)
-    pdf_file = open('/tmp/test.pdf', 'rb')
+    pdf_file = open(temp_filename, 'rb')
     response = HttpResponse(pdf_file, content_type='application/pdf')
-    response['Content-Disposition'] = 'attachment; filename="test.pdf"'
-    os.remove('/tmp/test.pdf')
+    os.remove(temp_filename)
     return response
 
 
