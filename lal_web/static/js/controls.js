@@ -97,17 +97,23 @@ function generate_pdf() {
     var post_request = new XMLHttpRequest();
     post_request.open('POST', '/generate/');
     post_request.responseType = 'blob';
-    post_request.onload = function (oEvent) {
+    post_request.timeout = 30000;
+
+    post_request.onload = function (event) {
         if (this.status == 200) {
             var pdf_blob = new Blob([this.response], {type: 'application/pdf'});
             var link = document.createElement('a');
             link.href = window.URL.createObjectURL(pdf_blob);
-            link.download = "lal_.pdf";
+            link.download = "lal_output.pdf";
             link.click();
         } else {
             alert('失敗！請重試，或回報為 bug，謝謝。');
         }
     };
+
+    post_request.ontimeout = function (event) {
+        alert('連線逾時，請重試。');
+    }
 
     post_request.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
     post_request.setRequestHeader('X-CSRFToken', csrf_token);
