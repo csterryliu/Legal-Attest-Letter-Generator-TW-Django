@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="zh-Hant-TW">
     <head>
-        <title>台灣郵局存證信函產生器</title>
+        <title>台灣郵局存證信函產生器 Pro</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <script src="/static/third-party/jquery-3.3.1.min.js"></script>
         <link rel="stylesheet" href="/static/third-party/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/static/css/footer.css">
         <script src="/static/third-party/bootstrap/js/bootstrap.min.js"></script>
 
         <!-- custom js -->
@@ -13,11 +14,11 @@
         <script src="/static/js/controls.js"></script>
     </head>
 
-    <body background="/static/img/study.jpg">
+    <body background="/static/img/coffee.jpg">
         <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
             <ul class="navbar-nav">
                 <li class="nav-item active">
-                    <a class="nav-link" href="#">台灣郵局存證信函產生器</a>
+                    <a class="nav-link" href="#">台灣郵局存證信函產生器 Pro</a>
                 </li>
                 <li class=nav-item>
                     <a class="nav-link" href="https://github.com/csterryliu/Legal-Attest-Letter-Generator-TW-Django">
@@ -33,7 +34,7 @@
         </nav>
 
 
-        <div class="container" style="padding-top:20px">
+        <div class="container" style="padding-top:20px;padding-bottom: 100px">
             <div class="card border-light">
                 <div class="card-header">
                     資訊 
@@ -88,6 +89,13 @@
                     <button type="button" class="btn btn-success" style="float:right" onclick="generate_pdf()">產生文件</button>
                 </div>
             </div>
+        </div>
+
+        <div class="footer">
+                <div class="container">
+                  <span class="text-muted">Made with <span style="color: #e25555;">&#9829;</span> by <a target="_blank" href="https://github.com/csterryliu">csterryliu</a>.</span>
+                  <span class="text-muted">The backgound image is provided by <a target="_blank" href="https://pixabay.com/photo-3271749/">Pixbay</a> under CC0 Creative Commons.</span>
+                </div>
         </div>
 
         {% csrf_token %}
