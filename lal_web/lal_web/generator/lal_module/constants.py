@@ -2,8 +2,8 @@
 Constants which will be used in the main logic.
 """
 
-LETTER_FORMAT_PATH = 'res/tw_lal.pdf'
-DEFAULT_FONT_PATH = 'res/TW-Kai-98_1.ttf'
+LETTER_FORMAT_PATH = 'lal_web/generator/lal_module/res/tw_lal.pdf'
+DEFAULT_FONT_PATH = 'lal_web/generator/lal_module/res/TW-Kai-98_1.ttf'
 _PDF_INCH = 72
 ########################################################################
 # pre-defined coordinates of main article
