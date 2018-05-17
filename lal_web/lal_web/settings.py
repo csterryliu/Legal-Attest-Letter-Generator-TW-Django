@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
 import os
+import django_heroku
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -24,7 +25,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, "static/")
 SECRET_KEY = 'wsszt=y_*z#0%6(*=dnveu-x3nw0m^pxd)oxdcbp&=+&3@3-jl'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -120,34 +121,5 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': True,
-    'formatters': {
-        'detail_log': {
-            'format': "[%(asctime)s] %(levelname)-8s [%(name)s:%(lineno)s] \
-%(message)s",
-        }
-    },
-    'handlers': {
-        'web': {
-            'formatter': 'detail_log',
-            'filename': '/var/log/lal_web/lal_web.log',
-            'level': 'DEBUG',
-            'class': 'logging.handlers.RotatingFileHandler',
-            'maxBytes': 1024*1024*5,
-            'backupCount': 9,
-        },
-    },
-    'loggers': {
-        'django.request': {
-            'handlers': ['web'],
-            'level': 'DEBUG',
-            'propagate': True,
-        },
-        'lal_web': {
-            'handlers': ['web'],
-            'level': 'DEBUG',
-        }
-    },
-}
+# Configure Django App for Heroku.
+django_heroku.settings(locals(), databases=None, test_runner=False)
