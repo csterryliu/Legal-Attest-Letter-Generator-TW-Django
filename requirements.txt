@@ -1,5 +1,5 @@
 Django==1.11.11
-gunicorn=19.7.1
+gunicorn==19.7.1
 django-heroku
 dj-database-url
 whitenoise
