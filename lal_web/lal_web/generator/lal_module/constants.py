@@ -2,8 +2,11 @@
 Constants which will be used in the main logic.
 """
 
-LETTER_FORMAT_PATH = 'lal_web/generator/lal_module/res/tw_lal.pdf'
-DEFAULT_FONT_PATH = 'lal_web/generator/lal_module/res/TW-Kai-98_1.ttf'
+import os
+
+BASE_HEROKU_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+LETTER_FORMAT_PATH = os.path.join(BASE_HEROKU_DIR, 'lal_web/lal_web/generator/lal_module/res/tw_lal.pdf')
+DEFAULT_FONT_PATH = os.path.join(BASE_HEROKU_DIR, 'lal_web/lal_web/generator/lal_module/res/TW-Kai-98_1.ttf')
 _PDF_INCH = 72
 ########################################################################
 # pre-defined coordinates of main article
