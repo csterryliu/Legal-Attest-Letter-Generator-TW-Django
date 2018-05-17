@@ -1,1 +1,1 @@
-web: gunicorn lal_web.wsgi
+web: gunicorn --pythonpath lal_web lal_web.wsgi
