@@ -73,6 +73,11 @@ function generate_pdf() {
         })
     }
 
+    // show loading icon
+    $('div .card.border-dark .card-footer .loader').show()
+    // disable button
+    $('div .card.border-dark .card-footer button').prop('disabled', true)
+
     var post_data = {
         'senders': [],
         'senders_addr': [],
@@ -109,6 +114,10 @@ function generate_pdf() {
         } else {
             alert('失敗！請重試，或回報為 bug，謝謝。');
         }
+        // hide loading icon
+        $('div .card.border-dark .card-footer .loader').hide()
+        // disable button
+        $('div .card.border-dark .card-footer button').prop('disabled', false)
     };
 
     post_request.ontimeout = function (event) {
