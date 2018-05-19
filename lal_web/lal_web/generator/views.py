@@ -32,7 +32,7 @@ def generate(request):
             data['content'])
         temp_filename =\
             ('/tmp/%s-%s.pdf' % (str(uuid.uuid4()),
-             '{0:%Y-%m-%d-%H-%M-%S}'.format(datetime.datetime.now())))
+             '{0:%Y-%m-%d-%H-%M-%S-%f}'.format(datetime.datetime.now())))
         core.merge_text_and_letter(text_path, letter_path, temp_filename)
         core.clean_temp_files(text_path, letter_path)
     except Exception as e:

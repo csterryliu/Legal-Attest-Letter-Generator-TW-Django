@@ -29,12 +29,14 @@ def merge_text_and_letter(text_path, letter_path, output_filename):
     page_merge.save()
 
 def gen_filename(rand_length):
+    import uuid
     now = datetime.datetime.now()
     prefix = ''.join(
         random.choice(string.ascii_lowercase) for i in range(rand_length))
     rand_str = ''.join(
         random.choice(string.ascii_lowercase) for i in range(rand_length))
-    ret = ('%s-%s-%s' % (prefix, now.strftime('%Y%m%d%H%M%S.%f'), rand_str))
+    ret = ('/tmp/%s-%s-%s-%s' % (str(uuid.uuid4()), prefix,
+                                 now.strftime('%Y%m%d%H%M%S.%f'), rand_str))
     return ret
 
 
