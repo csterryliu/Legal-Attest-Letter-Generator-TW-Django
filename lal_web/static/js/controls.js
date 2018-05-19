@@ -73,6 +73,11 @@ function generate_pdf() {
         })
     }
 
+    // show loading icon
+    $('div .card.border-dark .card-footer .loader').show()
+    // disable button
+    $('div .card.border-dark .card-footer button').prop('disabled', true)
+
     var post_data = {
         'senders': [],
         'senders_addr': [],
@@ -103,12 +108,22 @@ function generate_pdf() {
         if (this.status == 200) {
             var pdf_blob = new Blob([this.response], {type: 'application/pdf'});
             var link = document.createElement('a');
-            link.href = window.URL.createObjectURL(pdf_blob);
+            var url = window.URL.createObjectURL(pdf_blob);
+            link.href = url;
             link.download = "lal_output.pdf";
+            document.body.appendChild(link);
             link.click();
+            setTimeout(function(){
+                document.body.removeChild(link);
+                window.URL.revokeObjectURL(url);  
+            }, 100);  
         } else {
             alert('失敗！請重試，或回報為 bug，謝謝。');
         }
+        // hide loading icon
+        $('div .card.border-dark .card-footer .loader').hide()
+        // disable button
+        $('div .card.border-dark .card-footer button').prop('disabled', false)
     };
 
     post_request.ontimeout = function (event) {
