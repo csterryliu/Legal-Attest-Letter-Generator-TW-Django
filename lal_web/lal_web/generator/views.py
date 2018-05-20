@@ -1,3 +1,4 @@
+import logging
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseNotAllowed,\
     HttpResponseServerError
@@ -6,6 +7,8 @@ import os
 import uuid
 import datetime
 from lal_web.generator.lal_module import core
+
+logger = logging.getLogger('lal_web')
 
 
 def main_page(request):
