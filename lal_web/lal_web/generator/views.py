@@ -1,4 +1,3 @@
-import logging
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseNotAllowed,\
     HttpResponseServerError
@@ -7,8 +6,6 @@ import os
 import uuid
 import datetime
 from lal_web.generator.lal_module import core
-
-logger = logging.getLogger('lal_web')
 
 
 def main_page(request):
@@ -19,9 +16,7 @@ def generate(request):
     if request.method != 'POST':
         return HttpResponseNotAllowed(['POST'])
     try:
-        logger.debug(request.body)
         data = json.loads(request.body.decode('utf-8'))
-        logger.debug(data)
         text_path, letter_path = core.generate_text_and_letter(
             data['senders'],
             data['senders_addr'],
