@@ -106,11 +106,16 @@ function generate_pdf() {
 
     post_request.onload = function (event) {
         if (this.status == 200) {
+            var d = new Date();
+            var filename_date = d.getFullYear() + '-' + 
+                (d.getMonth()+1) + '-' + d.getDate() +
+                '-' + d.getHours() + '-' + d.getMinutes() + '-' +
+                d.getSeconds() + '-' + d.getMilliseconds();
             var pdf_blob = new Blob([this.response], {type: 'application/pdf'});
             var link = document.createElement('a');
             var url = window.URL.createObjectURL(pdf_blob);
             link.href = url;
-            link.download = "lal_output.pdf";
+            link.download = `lal_${filename_date}.pdf`;
             document.body.appendChild(link);
             link.click();
             setTimeout(function(){
