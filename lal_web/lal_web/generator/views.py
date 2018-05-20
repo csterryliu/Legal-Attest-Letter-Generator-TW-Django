@@ -61,7 +61,8 @@ def add_info(request):
     }
 
     ret_value = {
-        'role': role_map[role],
+        'role': role,
+        'role_cht': role_map[role],
         'role_name': role_name,
         'role_addr': role_addr,
         'num_of_info': int(num_of_info) + 1

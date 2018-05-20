@@ -46,7 +46,7 @@
                             <div class="card-subtitle">寄件人資訊</div>
                             <div class="card border-primary" id="sender_info">
                                     <div class="card-body">
-                                            <button type="button" class="btn btn-link" data-toggle="modal" data-target="#add_sender_modal" style="margin-left:15px">新增..</button>
+                                            <button type="button" class="btn btn-link" data-toggle="modal" data-target="#add_sender_modal" style="margin-left:15px" onclick="reset_form('sender')">新增..</button>
                                     </div>
                             </div>
                         </div>
@@ -55,7 +55,7 @@
                             <div class="card-subtitle">收件人資訊</div>
                             <div class="card border-primary" id="receiver_info">
                                     <div class="card-body">
-                                            <button type="button" class="btn btn-link" data-toggle="modal" data-target="#add_receiver_modal" style="margin-left:15px">新增..</button>
+                                            <button type="button" class="btn btn-link" data-toggle="modal" data-target="#add_receiver_modal" style="margin-left:15px" onclick="reset_form('receiver')">新增..</button>
                                     </div>
                             </div>
                         </div>
@@ -64,7 +64,7 @@
                             <div class="card-subtitle">副本收件人資訊</div>
                             <div class="card border-primary" id="cc_info">
                                     <div class="card-body">
-                                            <button type="button" class="btn btn-link" data-toggle="modal" data-target="#add_cc_modal" style="margin-left:15px">新增..</button>
+                                            <button type="button" class="btn btn-link" data-toggle="modal" data-target="#add_cc_modal" style="margin-left:15px" onclick="reset_form('cc')">新增..</button>
                                     </div>
                             </div>
                         </div>
@@ -108,7 +108,7 @@
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="add_sender_modal_label">新增寄件人資訊</h5>
+              <h5 class="modal-title" id="add_sender_modal_label">編輯寄件人資訊</h5>
             </div>
             <div class="modal-body">
                     <div class="form-group">
@@ -121,7 +121,7 @@
                     </div>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-primary" onclick="save_info('sender')" data-dismiss="modal">確定</button>
+              <button type="button" class="btn btn-primary" onclick="save_info(this, 'sender')" data-dismiss="modal" data-is_edit="false">確定</button>
               <button type="button" class="btn btn-danger" data-dismiss="modal">取消</button>
             </div>
           </div>
@@ -133,7 +133,7 @@
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="add_receiver_modal_label">新增收件人資訊</h5>
+              <h5 class="modal-title" id="add_receiver_modal_label">編輯收件人資訊</h5>
             </div>
             <div class="modal-body">
                     <div class="form-group">
@@ -146,7 +146,7 @@
                     </div>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-primary" onclick="save_info('receiver')" data-dismiss="modal">確定</button>
+              <button type="button" class="btn btn-primary" onclick="save_info(this, 'receiver')" data-dismiss="modal" data-is_edit="false">確定</button>
               <button type="button" class="btn btn-danger" data-dismiss="modal">取消</button>
             </div>
           </div>
@@ -158,7 +158,7 @@
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="add_cc_modal_label">新增副本收件人資訊</h5>
+              <h5 class="modal-title" id="add_cc_modal_label">編輯副本收件人資訊</h5>
             </div>
             <div class="modal-body">
                     <div class="form-group">
@@ -171,7 +171,7 @@
                     </div>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-primary" onclick="save_info('cc')" data-dismiss="modal">確定</button>
+              <button type="button" class="btn btn-primary" onclick="save_info(this, 'cc')" data-dismiss="modal" data-is_edit="false">確定</button>
               <button type="button" class="btn btn-danger" data-dismiss="modal">取消</button>
             </div>
           </div>
