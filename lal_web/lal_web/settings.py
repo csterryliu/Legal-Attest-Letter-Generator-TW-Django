@@ -21,17 +21,24 @@ STATIC_ROOT = os.path.join(BASE_DIR, "static/")
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'wsszt=y_*z#0%6(*=dnveu-x3nw0m^pxd)oxdcbp&=+&3@3-jl'
+SECRET_KEY = os.environ.get('SECRET_KEY', default='wsszt=y_*z#0%6(*=dnveu-x3nw0m^pxd)oxdcbp&=+&3@3-jl')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = 'RENDER' not in os.environ
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = []
+
+RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
+if RENDER_EXTERNAL_HOSTNAME:
+    ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
+
+SECURE_SSL_REDIRECT = True
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    'render.apps.RenderConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -42,6 +49,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -74,12 +82,12 @@ WSGI_APPLICATION = 'lal_web.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#     }
+# }
 
 
 # Password validation
@@ -120,34 +128,6 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': True,
-    'formatters': {
-        'detail_log': {
-            'format': "[%(asctime)s] %(levelname)-8s [%(name)s:%(lineno)s] \
-%(message)s",
-        }
-    },
-    'handlers': {
-        'web': {
-            'formatter': 'detail_log',
-            'filename': '/var/log/lal_web/lal_web.log',
-            'level': 'DEBUG',
-            'class': 'logging.handlers.RotatingFileHandler',
-            'maxBytes': 1024*1024*5,
-            'backupCount': 9,
-        },
-    },
-    'loggers': {
-        'django.request': {
-            'handlers': ['web'],
-            'level': 'DEBUG',
-            'propagate': True,
-        },
-        'lal_web': {
-            'handlers': ['web'],
-            'level': 'DEBUG',
-        }
-    },
-}
+if not DEBUG:
+    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
