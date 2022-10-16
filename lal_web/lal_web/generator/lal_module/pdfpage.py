@@ -1,4 +1,4 @@
-from lal_web.generator.lal_module.dep.PyPDF2 import PdfFileWriter, PdfFileReader
+from PyPDF2 import PdfFileWriter, PdfFileReader
 
 # TODO: create an abstract or interface class
 

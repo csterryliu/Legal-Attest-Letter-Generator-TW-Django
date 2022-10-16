@@ -1,6 +1,6 @@
-from lal_web.generator.lal_module.dep.reportlab.pdfgen import canvas
-from lal_web.generator.lal_module.dep.reportlab.pdfbase.ttfonts import TTFont
-from lal_web.generator.lal_module.dep.reportlab.pdfbase import pdfmetrics
+from reportlab.pdfgen import canvas
+from reportlab.pdfbase.ttfonts import TTFont
+from reportlab.pdfbase import pdfmetrics
 
 _DEFAULT_FONT_NAME = 'user-sepecified-font'
 _DEFAULT_FONT_SIZE = 20
