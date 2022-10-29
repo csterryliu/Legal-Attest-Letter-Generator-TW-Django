@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: lalg-pro
+    env: python
+    buildCommand: "./build.sh"
+    startCommand: "gunicorn --pythonpath lal_web lal_web.wsgi"
+    envVars:
+      - key: SECRET_KEY
+        generateValue: true
+      - key: WEB_CONCURRENCY
+        value: 4
