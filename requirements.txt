@@ -1,2 +1,3 @@
-Django==1.11.11
+Django==1.11.17
 gunicorn==19.7.1
+whitenoise
