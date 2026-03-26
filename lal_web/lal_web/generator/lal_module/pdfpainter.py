@@ -25,6 +25,30 @@ class PDFPainter:
     def draw_string(self, x_begin, y_begin, text):
         self.__canvas.drawString(x_begin, y_begin, text)
 
+    def get_string_width(self, text):
+        return pdfmetrics.stringWidth(text, _DEFAULT_FONT_NAME, self.__font_size)
+
+    def draw_wrapped_string(self, x_begin, y_begin, text, max_width, line_height=None):
+        """Draw text with automatic line wrapping. Returns y position of the last line."""
+        if line_height is None:
+            line_height = self.__font_size * 1.4
+        if self.get_string_width(text) <= max_width:
+            self.draw_string(x_begin, y_begin, text)
+            return y_begin
+        current_line = ''
+        y = y_begin
+        for char in text:
+            test_line = current_line + char
+            if self.get_string_width(test_line) > max_width:
+                self.draw_string(x_begin, y, current_line)
+                y -= line_height
+                current_line = char
+            else:
+                current_line = test_line
+        if current_line:
+            self.draw_string(x_begin, y, current_line)
+        return y
+
     def draw_line(self, x_begin, y_begin, x_end, y_end):
         self.__canvas.line(x_begin, y_begin, x_end, y_end)
 
