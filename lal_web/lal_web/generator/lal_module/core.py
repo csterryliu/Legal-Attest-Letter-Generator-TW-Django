@@ -156,6 +156,7 @@ def _draw_info_box(painter,
                       BOX_UPPDERRIGHT_X_Y[0], y_begin)  # right
 
 def _fill_name_address_in_info_box(painter, x_begin, y_begin, namelist, addresslist):
+    max_width = BOX_UPPDERRIGHT_X_Y[0] - x_begin - INFO_BOX_CONTENT_RIGHT_PADDING
     max_count = max(len(namelist), len(addresslist))
     if max_count == 0:
         painter.draw_string(x_begin, y_begin, u'姓名：')
@@ -165,10 +166,12 @@ def _fill_name_address_in_info_box(painter, x_begin, y_begin, namelist, addressl
 
     for i in range(max_count):
         all_name = ' '.join(namelist[i]) if i <= len(namelist)-1 else ''
-        painter.draw_string(x_begin, y_begin, u'姓名：' + all_name)
+        y_begin = painter.draw_wrapped_string(x_begin, y_begin, u'姓名：' + all_name,
+                                              max_width, WRAPPED_TEXT_LINE_HEIGHT)
         y_begin -= DETAIL_Y_INTERVAL
         address = addresslist[i] if i <= len(addresslist)-1 else ''
-        painter.draw_string(x_begin, y_begin, u'詳細地址：' + address)
+        y_begin = painter.draw_wrapped_string(x_begin, y_begin, u'詳細地址：' + address,
+                                              max_width, WRAPPED_TEXT_LINE_HEIGHT)
         y_begin -= DETAIL_Y_INTERVAL
 
     return y_begin
@@ -176,10 +179,14 @@ def _fill_name_address_in_info_box(painter, x_begin, y_begin, namelist, addressl
 def _fill_name_address_on_1st_page(painter, namelist, addresslist, type_):
     if len(namelist) == 1:
         all_name = ' '.join(namelist[0])
-        painter.draw_string(NAME_COORDINATE[type_+'_x_y_begin'][0],
+        name_x = NAME_COORDINATE[type_+'_x_y_begin'][0]
+        max_width = LETTER_LEFTMOST_BORDER - name_x
+        painter.draw_wrapped_string(name_x,
                             NAME_COORDINATE[type_+'_x_y_begin'][1],
-                            all_name)
+                            all_name, max_width, WRAPPED_TEXT_LINE_HEIGHT)
     if len(addresslist) == 1:
-        painter.draw_string(ADDR_COORDINATE[type_+'_x_y_begin'][0],
+        addr_x = ADDR_COORDINATE[type_+'_x_y_begin'][0]
+        max_width = LETTER_LEFTMOST_BORDER - addr_x
+        painter.draw_wrapped_string(addr_x,
                             ADDR_COORDINATE[type_+'_x_y_begin'][1],
-                            addresslist[0])
+                            addresslist[0], max_width, WRAPPED_TEXT_LINE_HEIGHT)
